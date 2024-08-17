@@ -14,6 +14,7 @@ import { infor } from "@/lib/enums";
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Contact = () => {
   const [firstName, setFirstName] = useState('')
@@ -21,14 +22,14 @@ const Contact = () => {
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [services, setServices] = useState('')
-  const [massage, setMassage] = useState('')
+  const [message, setMessage] = useState('')
 
   //insert
   const [isInsertFirstName, setInsertFirstName] = useState({ isValid: true, errorMassage: '' })
   const [isInsertLastName, setInsertLastName] = useState({ isValid: true, errorMassage: '' })
   const [isInsertPhoneNumber, setInsertPhoneNumber] = useState({ isValid: true, errorMassage: '' })
   const [isInsertEmail, setInsertEmail] = useState({ isValid: true, errorMassage: '' })
-  const [isInsertMassage, setInsertMassage] = useState({ isValid: true, errorMassage: '' })
+  const [isInsertMessage, setInsertMessage] = useState({ isValid: true, errorMassage: '' })
 
   const [selectServices, setSelectServices] = useState({ isValid: true, errorMassage: '' })
 
@@ -65,16 +66,32 @@ const Contact = () => {
     if (lastName != "") setInsertLastName({ isValid: true, errorMassage: '' })
     if (email != "") setInsertEmail({ isValid: true, errorMassage: '' })
     if (phoneNumber != "") setInsertPhoneNumber({ isValid: true, errorMassage: '' })
-    if (massage != "") setInsertMassage({ isValid: true, errorMassage: '' })
+    if (message != "") setInsertMessage({ isValid: true, errorMassage: '' })
     if (services != "") setSelectServices({ isValid: true, errorMassage: '' })
-  }, [firstName, lastName, email, phoneNumber, massage, services])
+  }, [firstName, lastName, email, phoneNumber, message, services])
 
-  const handleSummit = () => {
-    if (firstName != '' && lastName != '' && phoneNumber != '' && email != '' && massage != '' && services != '') {
+  const handleSummit = async () => {
+    if (firstName != '' && lastName != '' && phoneNumber != '' && email != '' && message != '' && services != '') {
       if ((validEmail.isValid) && (validPhoneNumber.isValid)) {
         console.log("submit")
+        const data = {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phoneNumber: phoneNumber,
+          services: services,
+          message: message,
+        }
+        await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/api/contacts`, data)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
-    } else {
+    }
+    else {
       if (firstName == '') {
         setInsertFirstName({ isValid: false, errorMassage: 'Please enter your firstname.' })
       } if (lastName == '') {
@@ -83,8 +100,8 @@ const Contact = () => {
         setInsertPhoneNumber({ isValid: false, errorMassage: 'Please enter your phone number.' })
       } if (email == '') {
         setInsertEmail({ isValid: false, errorMassage: 'Please enter your email address.' })
-      } if (massage == '') {
-        setInsertMassage({ isValid: false, errorMassage: 'Please enter your massage.' })
+      } if (message == '') {
+        setInsertMessage({ isValid: false, errorMassage: 'Please enter your massage.' })
       } if (services == '') {
         setSelectServices({ isValid: false, errorMassage: 'Please select a services.' })
       }
@@ -100,7 +117,7 @@ const Contact = () => {
   // console.log('phone', isInsertPhoneNumber.isValid)
   // console.log('massage', isInsertMassage.isValid)
   console.log('validPhoneNumber', validPhoneNumber.isValid)
-  console.log('validEmail',validEmail.isValid)
+  console.log('validEmail', validEmail.isValid)
   // console.log("service", services)
   return (
     <motion.div initial={{ opacity: 0 }}
@@ -205,14 +222,14 @@ const Contact = () => {
               </div>
               <div className="col-span-1 relative">
                 <div className="absolute -top-5 left-0">
-                  {!isInsertMassage.isValid && <p className="text-[10px] text-red-500">{isInsertMassage.errorMassage}</p>}
+                  {!isInsertMessage.isValid && <p className="text-[10px] text-red-500">{isInsertMessage.errorMassage}</p>}
                 </div>
                 <textarea
                   type="text"
-                  value={massage}
-                  onChange={(e) => setMassage(e.target.value)}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   placeholder="Type your massage here. (TH or ENG)"
-                  className={`flex h-[200px] w-full rounded-md border ${isInsertMassage.isValid ? `border-white/10` : `border-red-500`}  focus:border-accent font-light bg-primary px-4 py-5 text-base placeholder:text-white/60 outline-none`}
+                  className={`flex h-[200px] w-full rounded-md border ${isInsertMessage.isValid ? `border-white/10` : `border-red-500`}  focus:border-accent font-light bg-primary px-4 py-5 text-base placeholder:text-white/60 outline-none`}
                 />
               </div>
               <button
