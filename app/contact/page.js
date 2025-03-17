@@ -82,7 +82,7 @@ const Contact = () => {
           services: services,
           message: message,
         }
-        await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/api/contacts`, data)
+        await axios.post(`https://web-portforlio.vercel.app/api/contacts`, data)
           .then((res) => {
             console.log(res)
             window.location.reload()
