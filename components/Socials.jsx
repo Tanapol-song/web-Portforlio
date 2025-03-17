@@ -5,8 +5,12 @@ import { FaFacebook, FaGithub, FaInstagram } from "react-icons/fa";
 
 const socials = [
     {
+        icon: "CV",
+        path: "https://drive.google.com/file/d/12zFxZin605EtgTcYdtIwOJWhHCw4hu8s/view?usp=sharing",
+    },
+    {
         icon: <FaGithub />,
-        path: "",
+        path: "https://github.com/Tanapol-song",
     },
     {
         icon: <FaFacebook />,
