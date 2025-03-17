@@ -25,7 +25,7 @@ const Home = () => {
               {/* <Button
                 variant="outline"
                 size="lg"
-                // ref="https://drive.google.com/file/d/12zFxZin605EtgTcYdtIwOJWhHCw4hu8s/view?usp=sharing"
+                ref="https://drive.google.com/file/d/12zFxZin605EtgTcYdtIwOJWhHCw4hu8s/view?usp=sharing"
                 className="uppercase flex items-center gap-2">
                 <span>Dowload CV</span>
                 <FiDownload />
