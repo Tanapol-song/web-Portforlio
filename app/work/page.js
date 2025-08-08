@@ -18,14 +18,17 @@ import WorkSlideBtns from "@/components/WorkSlideBtns";
 
 const Work = () => {
   const [project, setProject] = useState(projects[0]);
+  const [nextProject, setNextProject] = useState(0);
 
   const handleSlideChange = (swiper) => {
-    //get current slide index
     const currentIndex = swiper.activeIndex;
 
-    //update project state based on current slide index
-    setProject(projects[currentIndex]);
-  }
+    if (projects && projects.length > 0 && currentIndex < projects.length) {
+      setProject(projects[currentIndex]);
+      setNextProject(currentIndex);
+    }
+  };
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -95,25 +98,30 @@ const Work = () => {
           </div>
           <div className="w-full xl:w-[50%]">
             <Swiper spaceBetween={30} slidesPerView={1} className="xl:h-[520px] mb-12" onSlideChange={handleSlideChange}>
-              {projects.map((item, index) => {
-                return <SwiperSlide key={index} className="w-full">
-                  <div className="h-[460px] relative group flex justify-center items-center bg-pink-50/20">
-                    {/* overlay */}
-                    <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10">
-
-                    </div>
-                    {/* Image */}
-                    <div className="relative w-full h-full">
-                      <Image src={project.image} fill className="object-cover" alt="" />
-                    </div>
-                  </div>
-                </SwiperSlide>
-              })}
               {/* button slide */}
               <WorkSlideBtns
                 containerStyles="flex gap-2 absolute right-0 bottom-[cale(50%_-_22px] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
                 btnStyles="bg-accent rounded-full hover:bg-accent-hover text-primary text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all" />
             </Swiper>
+            {/* <Swiper spaceBetween={30} slidesPerView={1} className="xl:h-[520px] mb-12" onSlideChange={handleSlideChange}>
+              {projects.map((item, index) => {
+                return <SwiperSlide key={index} className="w-full flex items-center justify-center">
+                  <div className="h-[460px] relative group flex justify-center items-center">
+                    <div className="absolute top-0 bottom-0 w-full h-full z-10">
+
+                    </div>
+                    Image
+                    <div className="relative w-full h-full">
+                      <Image src={project.image} height={460} width={460} alt="" />
+                    </div>
+                  </div>
+                </SwiperSlide>
+              })}
+              button slide
+              <WorkSlideBtns
+                containerStyles="flex gap-2 absolute right-0 bottom-[cale(50%_-_22px] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
+                btnStyles="bg-accent rounded-full hover:bg-accent-hover text-primary text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all" />
+            </Swiper> */}
           </div>
         </div>
       </div>

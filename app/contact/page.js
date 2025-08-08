@@ -73,7 +73,6 @@ const Contact = () => {
   const handleSummit = async () => {
     if (firstName != '' && lastName != '' && phoneNumber != '' && email != '' && message != '' && services != '') {
       if ((validEmail.isValid) && (validPhoneNumber.isValid)) {
-        console.log("submit")
         const data = {
           firstName: firstName,
           lastName: lastName,
@@ -82,7 +81,14 @@ const Contact = () => {
           services: services,
           message: message,
         }
-        await axios.post(`https://web-portforlio.vercel.app/api/contacts`, data)
+        await axios.post(`https://web-portforlio.vercel.app/api/contacts`, data,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+        )
+          // await axios.post(`http://localhost:3000/api/contacts`, data)
           .then((res) => {
             console.log(res)
             window.location.reload()
@@ -109,17 +115,6 @@ const Contact = () => {
     }
   }
 
-  // console.log(' isInsertEmail.isValid', isInsertEmail.isValid)
-  // console.log(' isInsertEmail.isValid', validEmail.isValid)
-
-  // console.log('firstname', isInsertFirstName.isValid)
-  // console.log('lastname', isInsertLastName.isValid)
-  // console.log('email', isInsertEmail.isValid)
-  // console.log('phone', isInsertPhoneNumber.isValid)
-  // console.log('massage', isInsertMassage.isValid)
-  console.log('validPhoneNumber', validPhoneNumber.isValid)
-  console.log('validEmail', validEmail.isValid)
-  // console.log("service", services)
   return (
     <motion.div initial={{ opacity: 0 }}
       animate={{

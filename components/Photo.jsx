@@ -26,9 +26,9 @@ const Photo = () => {
                             ease: "easeOut"
                         }
                     }}>
-                    <div className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute">
+                    <div className="w-[293px] h-[293px] xl:w-[493px] xl:h-[493px] mix-blend-lighten absolute">
                         <Image
-                            src="/assets/profile.png"
+                            src="/assets/profile-2.png"
                             priority
                             quality={100}
                             fill
